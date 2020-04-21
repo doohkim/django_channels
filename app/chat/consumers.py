@@ -6,6 +6,7 @@ from chat.utils import get_or_create_room_or_error, create_log_or_error
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
+    print('consumer start')
     async def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name

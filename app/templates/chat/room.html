@@ -7,12 +7,21 @@
 </head>
 <body>
     <p>welcome {{user}}</p>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+    <div id="chat-history"></div>
+    <textarea id="chat-log" cols="100" rows="20">
+{% for log in log_list %}{{log}}
+{% endfor %}</textarea><br>
     <input id="chat-message-input" type="text" size="100"><br>
     <input id="chat-message-submit" type="button" value="Send">
     {{ room_name|json_script:"room-name" }}
+    {{ log_list|json_script:"log-list" }}
+
+
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const chatLog = JSON.parse(document.getElementById('log-list').textContent);
+        console.log('chat_log');
+        console.log(chatLog);
 
         const chatSocket = new WebSocket(
             'ws://'
@@ -22,8 +31,12 @@
             + '/'
         );
 
+
+
+
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
+
             document.querySelector('#chat-log').value += (data.message + '\n');
         };
 

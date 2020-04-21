@@ -27,3 +27,5 @@ class Chat(models.Model):
     # from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='chat_by_from_user')
     to_user   = models.ForeignKey(User, on_delete=models.CASCADE, related_name='chat_by_to_user')
     log = models.CharField(max_length=300)
+    created_date = models.DateTimeField(auto_now_add=True)
+    modify_date = models.DateTimeField(auto_now=True)
